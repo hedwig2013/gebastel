@@ -5,7 +5,8 @@ from datetime import datetime
 from datetime import timedelta
 import sys
 
-dur=timedelta()
+dur1=timedelta()
+dur2=timedelta()
 
 if len(sys.argv)!=2:
     print("Bitte genau einen Pfad zu einer Bildersammlung angeben.")
@@ -22,19 +23,22 @@ for r,d,f in os.walk(b):
         try:
             s1=datetime.now()
             i=image.open(pl)
+            s2=datetime.now()
             width=i.width
             height=i.height
             d=draw.Draw(i)
             d.line((0,0,width,height),fill=(255,255,255),width=5)
             d.line((width,0,0,height),fill=(255,255,255),width=5)
-            s2=datetime.now()
+            s3=datetime.now()
 
             i.save("review.png",format="png")
 
-            dur+=(s2-s1)
+            dur1+=(s2-s1)
+            dur2+=(s3-s2)
         except Exception:
             continue
         finally:
             i.close()
 
-print(dur)
+print(dur1)
+print(dur2)

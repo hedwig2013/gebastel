@@ -11,7 +11,8 @@ import (
 )
 
 var allpaths []string
-var dur time.Duration = time.Duration(0)
+var dur1 time.Duration = time.Duration(0)
+var dur2 time.Duration = time.Duration(0)
 
 func main() {
 
@@ -28,7 +29,8 @@ func main() {
 		walker(p)
 	}
 
-	fmt.Println(dur)
+	fmt.Println(dur1)
+	fmt.Println(dur2)
 
 }
 
@@ -46,6 +48,7 @@ func walker(pathname string) {
 	if err != nil {
 		return
 	}
+	s2 := time.Now()
 	dc := gg.NewContextForImage(i)
 	height := float64(dc.Height())
 	width := float64(dc.Width())
@@ -54,9 +57,11 @@ func walker(pathname string) {
 	dc.DrawLine(0, 0, width, height)
 	dc.DrawLine(width, 0, 0, height)
 	dc.Stroke()
-	s2 := time.Now()
+	s3 := time.Now()
 
 	// dc.SavePNG("review.png")
 
-	dur += s2.Sub(s1)
+	dur1 += s2.Sub(s1)
+	dur2 += s3.Sub(s2)
+
 }
