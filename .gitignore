@@ -1,5 +1,6 @@
 runtime
 workspace.code-workspace
-gebastel.exe
+*.exe
 .vscode
 review.png
+*.pc

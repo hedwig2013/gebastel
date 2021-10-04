@@ -8,6 +8,7 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/davidbyttow/govips/v2/vips"
 	"github.com/fogleman/gg"
 )
 
@@ -29,6 +30,9 @@ type report struct {
 var rh reportHead
 
 func main() {
+
+	vips.Startup(nil)
+	vips.Shutdown()
 
 	rh = reportHead{
 		Reports: []report{},

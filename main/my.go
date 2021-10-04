@@ -3,12 +3,14 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"image"
+	"image/color"
 	"io/fs"
 	"os"
 	"path/filepath"
 	"time"
 
-	"github.com/fogleman/gg"
+	"gocv.io/x/gocv"
 )
 
 var allpaths []string
@@ -33,6 +35,8 @@ func main() {
 	rh = reportHead{
 		Reports: []report{},
 	}
+
+	time.Sleep((time.Duration(10) * time.Second))
 
 	if len(os.Args) != 2 {
 		fmt.Println("Bitte genau einen Pfad zu einer Bildersammlung angeben.")
@@ -73,22 +77,15 @@ func walker2(path string, info fs.DirEntry, err error) error {
 func walker(pathname string) report {
 
 	s1 := time.Now()
-	i, err := gg.LoadImage(pathname)
-	if err != nil {
-		return report{Extension: "---"}
-	}
+	theImage := gocv.IMRead(pathname, gocv.IMReadColor)
 	s2 := time.Now()
-	dc := gg.NewContextForImage(i)
-	height := float64(dc.Height())
-	width := float64(dc.Width())
-	dc.SetHexColor("ffffff")
-	dc.SetLineWidth(5)
-	dc.DrawLine(0, 0, width, height)
-	dc.DrawLine(width, 0, 0, height)
-	dc.Stroke()
+	isize := theImage.Size()
+	pt1 := image.Point{X: 0, Y: 0}
+	pt2 := image.Point{X: isize[0], Y: isize[1]}
+	gocv.Line(&theImage, pt1, pt2, color.RGBA{R: 255, G: 255, B: 255, A: 255}, 5)
 	s3 := time.Now()
 
-	// dc.SavePNG("review.png")
+	gocv.IMWrite("review.png", theImage)
 
 	dur1 += s2.Sub(s1)
 	dur2 += s3.Sub(s2)
