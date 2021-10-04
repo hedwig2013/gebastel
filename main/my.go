@@ -77,15 +77,22 @@ func walker2(path string, info fs.DirEntry, err error) error {
 func walker(pathname string) report {
 
 	s1 := time.Now()
-	theImage := gocv.IMRead(pathname, gocv.IMReadColor)
+	theImage := gocv.IMRead(pathname, gocv.IMReadUnchanged)
+	if theImage.Empty() {
+		return report{Extension: "---"}
+	}
 	s2 := time.Now()
 	isize := theImage.Size()
 	pt1 := image.Point{X: 0, Y: 0}
-	pt2 := image.Point{X: isize[0], Y: isize[1]}
+	pt2 := image.Point{X: isize[1], Y: isize[0]}
+	gocv.Line(&theImage, pt1, pt2, color.RGBA{R: 255, G: 255, B: 255, A: 255}, 5)
+	pt1 = image.Point{X: isize[1], Y: 0}
+	pt2 = image.Point{X: 0, Y: isize[0]}
 	gocv.Line(&theImage, pt1, pt2, color.RGBA{R: 255, G: 255, B: 255, A: 255}, 5)
 	s3 := time.Now()
 
-	gocv.IMWrite("review.png", theImage)
+	//gocv.IMWrite("review.png", theImage)
+	theImage.Close()
 
 	dur1 += s2.Sub(s1)
 	dur2 += s3.Sub(s2)
