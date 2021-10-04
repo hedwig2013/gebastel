@@ -5,17 +5,23 @@ NOTHING TO EXPLAIN. IT IS A PRIVATE PLAYGROUND!
 
 Python:
 
-Bildladen:      0:00:03.144971
+Bildladen:      0m3.144971s
 
-Kreuz zeichnen: 0:01:32.665759
+Kreuz zeichnen: 1m32.665759s
 
-Go:
+Go mit std pkg image:
 
 Bildladen:      3m51.3862602s
 
 Kreuz zeichnen: 1m12.3785268s
 
-Hier nun Go mit OpenCV 4.5.3
+Hier nun Go mit gocv und OpenCV 4.5.3:
+
+Bildladen:      2m32.0122601s
+
+Kreuz zeichnen: 0m7.8792553s
+
+Gleiche Bildsammlung. Python ist immer noch schneller. WTF?
 
     ----------------------------------------------------------+-------------
         flat  flat%   sum%        cum   cum%   calls calls% + context
