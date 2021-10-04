@@ -8,6 +8,7 @@ import (
 	"io/fs"
 	"os"
 	"path/filepath"
+	"runtime/pprof"
 	"time"
 
 	"gocv.io/x/gocv"
@@ -31,6 +32,19 @@ type report struct {
 var rh reportHead
 
 func main() {
+
+	proffile, err := os.Create("cpu.prof")
+	if err != nil {
+		os.Exit(1)
+	}
+	defer proffile.Close()
+
+	err = pprof.StartCPUProfile(proffile)
+	if err != nil {
+		os.Exit(1)
+	}
+
+	defer pprof.StopCPUProfile()
 
 	rh = reportHead{
 		Reports: []report{},
@@ -78,6 +92,7 @@ func walker(pathname string) report {
 
 	s1 := time.Now()
 	theImage := gocv.IMRead(pathname, gocv.IMReadUnchanged)
+	s4 := time.Now()
 	if theImage.Empty() {
 		return report{Extension: "---"}
 	}
@@ -94,7 +109,7 @@ func walker(pathname string) report {
 	//gocv.IMWrite("review.png", theImage)
 	theImage.Close()
 
-	dur1 += s2.Sub(s1)
+	dur1 += s4.Sub(s1)
 	dur2 += s3.Sub(s2)
 
 	fi, _ := os.Stat(pathname)
