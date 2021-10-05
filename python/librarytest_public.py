@@ -6,6 +6,7 @@ from datetime import timedelta
 import sys
 import json
 import cProfile
+import pstats
 
 def main():
     dur1=timedelta()
@@ -28,6 +29,7 @@ def main():
             try:
                 s1=datetime.now()
                 i=image.open(pl)
+                i.load()
                 s2=datetime.now()
                 width=i.width
                 height=i.height
@@ -61,4 +63,7 @@ def main():
     print(dur2)
 
 if __name__=="__main__":
-    cProfile.run("main()")
+    main()
+    # cProfile.run("main()",filename="cProfile.prof",sort="cumulative")
+    # p=pstats.Stats("cProfile.prof")
+    # p.sort_stats(pstats.SortKey.CUMULATIVE).print_stats()
