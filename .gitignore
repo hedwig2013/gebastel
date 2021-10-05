@@ -4,3 +4,4 @@ workspace.code-workspace
 .vscode
 review.png
 *.pc
+python/__pycache__/librarytest_public.cpython-39.pyc
