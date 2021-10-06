@@ -31,20 +31,6 @@ type report struct {
 var rh reportHead
 
 func main() {
-	/*
-		proffile, err := os.Create("cpu.prof")
-		if err != nil {
-			os.Exit(1)
-		}
-		defer proffile.Close()
-
-		err = pprof.StartCPUProfile(proffile)
-		if err != nil {
-			os.Exit(1)
-		}
-
-		defer pprof.StopCPUProfile()
-	*/
 	rh = reportHead{
 		Reports: []report{},
 	}

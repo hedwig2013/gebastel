@@ -5,8 +5,6 @@ from datetime import datetime
 from datetime import timedelta
 import sys
 import json
-import cProfile
-import pstats
 
 def main():
     dur1=timedelta()
@@ -64,6 +62,3 @@ def main():
 
 if __name__=="__main__":
     main()
-    # cProfile.run("main()",filename="cProfile.prof",sort="cumulative")
-    # p=pstats.Stats("cProfile.prof")
-    # p.sort_stats(pstats.SortKey.CUMULATIVE).print_stats()
